@@ -1,0 +1,25 @@
+.toolbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.button {
+    cursor: pointer;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+.pokedex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.pokedex_entry {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
