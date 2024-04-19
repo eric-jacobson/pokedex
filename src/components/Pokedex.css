@@ -15,11 +15,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
 }
 
 .pokedex_entry {
     display: flex;
     align-items: center;
-    justify-content: center;
 }
