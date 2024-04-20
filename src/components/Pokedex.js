@@ -1,33 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Pokedex.css";
 
 export default function Pokedex() {
-  const [index, setIndex] = useState(0);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState({});
   const [render, setRender] = useState(false);
+  const [dexNumber, setDexNumber] = useState(null);
+
+  useEffect(() => {
+    if (dexNumber) {
+      fetchPokemonById(dexNumber);
+    }
+  }, [dexNumber]);
+
+  const fetchPokemonById = async (id) => {
+    console.log("fetching pokemon by id");
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const data = await response.json();
+    setResults(data);
+    setRender(true);
+  };
 
   const search = async (e) => {
+    console.log("searching...");
     e.preventDefault();
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`);
     const data = await response.json();
     console.log(data);
     setResults(data);
+    setDexNumber(data.id);
     setRender(true);
   };
 
-  // need some kind of check here to make sure we don't fall off the end
   function handleNextClick() {
-    // if (index < urls.length - 1) {
-    // setIndex(index + 1);
-    console.log("updated index to " + index);
-    // }
+    if (dexNumber < 1025) {
+      setDexNumber(dexNumber + 1);
+    }
   }
 
   function handlePreviousClick() {
-    if (index > 0) {
-      // setIndex(index - 1);
-      console.log("updated index to " + index);
+    if (dexNumber > 1) {
+      setDexNumber(dexNumber - 1);
     }
   }
 
@@ -51,7 +64,7 @@ export default function Pokedex() {
           Next
         </button>
       </div>
-      {render && <PokedexItem pokemon={results} render={render} />}
+      <PokedexItem pokemon={results} render={render} />
     </>
   );
 }
