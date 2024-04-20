@@ -14,7 +14,6 @@ export default function Pokedex() {
   }, [dexNumber]);
 
   const fetchPokemonById = async (id) => {
-    console.log("fetching pokemon by id");
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const data = await response.json();
     setResults(data);
@@ -22,7 +21,6 @@ export default function Pokedex() {
   };
 
   const search = async (e) => {
-    console.log("searching...");
     e.preventDefault();
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`);
     const data = await response.json();
